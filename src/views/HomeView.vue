@@ -56,9 +56,35 @@
   <div v-cloak>
     <h2>{{ message }}</h2>
   </div>
+
+  <!-- {{ users }} -->
+
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Profile</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr v-for="(user, index) in users" :key="index">
+      <td>{{ user.id }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <img :src="user.avatar" />
+      </td>
+    </tr>
+  </tbody>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "HomeView",
   data() {
@@ -66,6 +92,7 @@ export default {
       cor: {
         atual: "",
       },
+      users: [],
       cores: [
         { nome: "red", id: "#FF0000" },
         { nome: "blue", id: "#0000FF" },
@@ -86,11 +113,19 @@ export default {
     alteraNome() {
       this.nome = "Gideão";
     },
+    getUser() {
+      const url = "https://reqres.in/api/users?page=2";
+      axios.get(url).then((res) => {
+        this.users = res.data.data;
+        console.log(res.data.data);
+      });
+    },
   },
   mounted() {
     setTimeout(() => {
       this.message = "Página completamente carregada!";
     }, "3000");
+    this.getUser();
   },
 };
 </script>
