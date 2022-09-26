@@ -54,7 +54,7 @@
 
   <!-- Oculta o conteudo até a página ser completamente carregada -->
   <div v-cloak>
-    <h2>{{ message }}</h2>
+    <h3>{{ message }}</h3>
   </div>
 
   <!-- {{ users }} -->
